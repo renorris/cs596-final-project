@@ -1,0 +1,6 @@
+#define RC522_RST_PIN GPIO_NUM_4
+#define RC522_SS_PIN  GPIO_NUM_3
+#define BUTTON_PIN    GPIO_NUM_2
+#define SERVO_PIN     GPIO_NUM_6
+#define MOSFET_PIN    GPIO_NUM_5
+#define BUZZER_PIN    GPIO_NUM_7

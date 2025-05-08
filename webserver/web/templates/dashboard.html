@@ -1,0 +1,93 @@
+{{ define "title" }}Lockbox - Dashboard{{ end }}
+
+{{ define "body" }}
+
+<style>
+    table, th, td {
+        text-align: left;
+        border: 1px solid;
+    }
+    th, td {
+        padding: 8px;
+    }
+    pre {
+        margin: 0;
+        padding: 0;
+    }
+    form {
+        display: inline;
+    }
+    .set-opens-field {
+        width: 64px;
+    }
+    .input-button {
+        margin-left: 8px;
+    }
+    .remaining-opens {
+        border: 1px dashed;
+        padding: 3px;
+    }
+</style>
+
+<div>
+    <p>{{ .User.LastName }}, {{ .User.FirstName }}<br>{{ .User.Email }}</p>
+
+    <h1>Dashboard</h1>
+
+    <h3>Cards</h3>
+    {{ if .Cards }}
+    <table>
+        <tr>
+            <th>UUID</th>
+            <th>Name</th>
+            <th>Creation Time</th>
+            <th>Remaining Opens</th>
+        </tr>
+        {{ range .Cards }}
+        <tr>
+            <td><pre>{{ .UUID }}</pre></td>
+            <td>
+                <form action="/app/dashboard/updatefriendlyname/{{ .UUID }}" method="POST">
+                    <input id="friendly-name-{{ .UUID }}" type="text" name="name" value="{{ .FriendlyName }}" disabled>
+                    <button type="button" onclick="handleUpdateNameButton(this, '{{ .UUID }}')">✎</button>
+                    <button id="friendly-name-submit-{{ .UUID }}" type="submit" hidden>Update</button>
+                </form>
+            </td>
+            <td>{{ .CreatedAt.Format "Jan 02, 2006 15:04:05 UTC" }}</td>
+            <td>
+                {{ if eq .RemainingOpens -1 }}
+                Infinite
+                {{ else }}
+                <strong class="remaining-opens">{{ .RemainingOpens }}</strong>
+                {{ end }}
+                <form action="/app/dashboard/incrementopens/{{ .UUID }}" method="POST">
+                    <input class="input-button" type="submit" value="+">
+                </form>
+                {{ if gt .RemainingOpens 0 }}
+                <form action="/app/dashboard/decrementopens/{{ .UUID }}" method="POST">
+                    <input class="input-button" type="submit" value="−">
+                </form>
+                {{ end }}
+                <form action="/app/dashboard/setopens/{{ .UUID }}" method="POST">
+                    <input class="input-button" type="submit" value="Set">
+                    <input class="set-opens-field" type="number" name="num" placeholder="Opens" required>
+                </form>
+            </td>
+        </tr>
+        {{ end }}
+    </table>
+    {{ else }}
+    <p>No cards available!</p>
+    {{ end }}
+
+    <p><a href="/app/logout">Log out</a></p>
+</div>
+
+<script>
+    function handleUpdateNameButton(e, uuid) {
+        document.getElementById(`friendly-name-${uuid}`).disabled = false
+        e.hidden = true
+        document.getElementById(`friendly-name-submit-${uuid}`).hidden = false
+    }
+</script>
+{{ end }}

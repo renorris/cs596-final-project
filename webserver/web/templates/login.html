@@ -1,0 +1,31 @@
+{{ define "title" }}Lockbox - Login{{ end }}
+
+{{ define "body" }}
+<div>
+    <h1>Login</h1>
+
+    <form action="/app/login" method="POST">
+        <table style="text-align: left;">
+            <tr>
+                <th>Email</th>
+            </tr>
+            <tr>
+                <td><input id="email" name="email" type="email"></td>
+            </tr>
+            <tr>
+                <th>Password</th>
+            </tr>
+            <tr>
+                <td><input id="password" name="password" type="password"></td>
+            </tr>
+            <tr>
+                <th>Remember Me <input id="remember_me" name="remember_me" type="checkbox"></th>
+            </tr>
+        </table>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <p><a href="/app/createaccount">Create account</a></p>
+</div>
+{{ end }}

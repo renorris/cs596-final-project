@@ -1,0 +1,38 @@
+{{ define "title" }}Lockbox - Create Account{{ end }}
+
+{{ define "body" }}
+<div>
+    <h1>Create Account</h1>
+
+    <form action="/app/createaccount" method="POST">
+        <table style="text-align: left;">
+            <tr>
+                <th>Email</th>
+            </tr>
+            <tr>
+                <td><input id="email" name="email" type="text"></td>
+            </tr>
+            <tr>
+                <th>Password</th>
+            </tr>
+            <tr>
+                <td><input id="password" name="password" type="password"></td>
+            </tr>
+            <tr>
+                <th>First Name</th>
+            </tr>
+            <tr>
+                <td><input id="first_name" name="first_name" type="text"></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+            </tr>
+            <tr>
+                <td><input id="last_name" name="last_name" type="text"></td>
+            </tr>
+        </table>
+        <br>
+        <input type="submit" value="Create Account">
+    </form>
+</div>
+{{ end }}
