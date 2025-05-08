@@ -1,4 +1,4 @@
-# CS 496 Final Project
+# CS 596 Final Project
 
 Group Members:
 
